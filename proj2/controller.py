@@ -12,45 +12,42 @@ class Controller():
         self.sendPort = 5001
         self.recvPort = 5002
 
-        self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
-        self._keyboard.bind(on_key_down=self._on_keyboard_down)
-
         self.renderer = kwargs['renderer']
 
         self._touches = []
 
         oscAPI.init()  
-        oscid = oscAPI.listen(ipAddr=self.ip, port= 5000) 
-        Clock.schedule_interval(lambda *x: oscAPI.readQueue(oscid), 0)
-        oscAPI.bind(oscid, self.dialListener, '/tuios/tok')
+        dialOSC = oscAPI.listen(ipAddr=self.ip, port=5000) 
+        Clock.schedule_interval(lambda *x: oscAPI.readQueue(dialOSC), 0)
+        oscAPI.bind(dialOSC, self.dialListener, '/tuios/tok')
 
-        oscid2 = oscAPI.listen(ipAddr=self.ip, port= self.recvPort) 
-        Clock.schedule_interval(lambda *x: oscAPI.readQueue(oscid2), 0)
-        oscAPI.bind(oscid2, self.receive, '/tuios/tok')
+        recvOSC = oscAPI.listen(ipAddr=self.ip, port= self.recvPort) 
+        Clock.schedule_interval(lambda *x: oscAPI.readQueue(recvOSC), 0)
+        oscAPI.bind(recvOSC, self.receive, '/tuios/tok')
 
-    def _keyboard_closed(self):
-        self._keyboard.unbind(on_key_down=self._on_keyboard_down)
-        self._keyboard = None
+    #def _keyboard_closed(self):
+     #   self._keyboard.unbind(on_key_down=self._on_keyboard_down)
+      #  self._keyboard = None
 
-    def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
-        if keycode[1] == 'left':
-            self.rotate(-5,0)
-        elif keycode[1] == 'right':
-            self.rotate(5,0)
-        if keycode[1] == 'up':
-            self.rotate(0,-5)
-        elif keycode[1] == 'down':
-            self.rotate(0,5)
-        elif keycode[1] == 'n':
-            self.setRotation(0,0)
-        elif keycode[1] == 'escape':
-            sys.exit()
-        elif keycode[1] == '.':
-            self.zoom(-0.1)
-        elif keycode[1] == ',':
-            self.zoom(0.1)
+    #def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
+     #   if keycode[1] == 'left':
+     #       self.rotate(-5,0)
+     #   elif keycode[1] == 'right':
+     #       self.rotate(5,0)
+     #   if keycode[1] == 'up':
+     #       self.rotate(0,-5)
+     #   elif keycode[1] == 'down':
+     #       self.rotate(0,5)
+     #   elif keycode[1] == 'n':
+     #       self.setRotation(0,0)
+     #   elif keycode[1] == 'escape':
+     #       sys.exit()
+     #   elif keycode[1] == '.':
+     #       self.zoom(-0.1)
+     #   elif keycode[1] == ',':
+     #       self.zoom(0.1)
 
-        return True     
+     #   return True     
 
     def send(self):
         x = self.renderer.rotx.angle
@@ -59,7 +56,7 @@ class Controller():
         print "sending:", x, y, z
 
         oscAPI.sendMsg('/tuios/tok', [x,y,z], 
-                                    ipAddr= self.sendip, 
+                                    ipAddr= self.ip, 
                                     port= self.sendPort) 
 
     def receive(self, value, instance):
@@ -102,6 +99,13 @@ class Controller():
 
         self.send()
 
+    def setSlide(self, slide):
+	print "sending:", slide, "\n\n\n\n\n\n\n\n"
+
+        oscAPI.sendMsg('/tuios/tok', [slide], 
+                                    ipAddr= self.ip, 
+                                    port= 5003)
+
     def dialListener(self, value, instance):
         print ("value", value, "instance:", instance)
         knob = value[2]
@@ -115,3 +119,5 @@ class Controller():
             self.setRotationY(angle)
         elif (knob == 3):
             self.setZoom(angle/360 * 30)
+        elif (knob == 4):
+            self.setSlide(angle)

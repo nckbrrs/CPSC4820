@@ -6,7 +6,7 @@ class UI(AnchorLayout):
         super(UI, self).__init__(**kwargs)
         self.controller = kwargs['controller']
 
-        self.controller = kwargs['controller']
+       # self.controller = kwargs['controller']
         self.renderer = kwargs['renderer']
         self.add_widget(self.renderer)
         self._touches = []
