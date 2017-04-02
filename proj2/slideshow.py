@@ -117,25 +117,80 @@ class SlideShow():
 		slides = BoxLayout(orientation='vertical')
 		self.slides = slides
 
-		slide1 = Label(text="PAST SLIDE",
+		slide1 = BoxLayout(orientation='vertical', size_hint=(1, None), height=300)
+		slide1MedLayout = BoxLayout(orientation='horizontal')
+		slide1TopLabel = Label(text="INTRODUCTION",
 				color=(255, 255, 255, 0.8),
 				font_size='30sp')
+
+		slide1MedLeftLabel = Label(text="s1 med left", 
+					color=(255,255,255,0.8),
+					font_size='20sp')
+		slide1MedMedLabel = Label(text="s1 med med",
+					color=(255, 255, 255, 0.8),
+					font_size='20sp')
+		slide1MedRightLabel = Label(text="s1 med right",
+					color=(255,255,255,0.8),
+					font_size='20sp')
+
+		slide1MedLayout.add_widget(slide1MedLeftLabel)
+		slide1MedLayout.add_widget(slide1MedMedLabel)
+		slide1MedLayout.add_widget(slide1MedRightLabel)
+
+		slide1.add_widget(slide1TopLabel)
+		slide1.add_widget(slide1MedLayout)
 		self.slide1 = slide1
+
+		slide2 = BoxLayout(orientation='vertical', size_hint=(1, None), height=300)
+		slide2MedLayout = BoxLayout(orientation='horizontal',
+					size_hint=(1, None),
+					height=200)
+		slide2TopLabel = Label(text="PRESENT SLIDE",
+				color=(255, 255, 255, 0.8),
+				font_size='30sp')
+
+		slide2MedLeftLabel = Label(text="here's the brain we're tryna look at",
+					color=(255,255,255,0.8),
+					font_size='20sp')
 
 		renderer = Renderer()
 		controller = Controller(renderer = renderer)
-		slide2 = UI(renderer = renderer, controller = controller)
+		ui = UI(renderer = renderer, controller = controller)
 
-		slide2 = Label(text="PRESENT SLIDE",
-				color=(255, 255, 255, 0.8),
-				font_size='30sp')
+		slide2MedLayout.add_widget(slide2MedLeftLabel)
+		slide2MedLayout.add_widget(ui)
+
+		slide2.add_widget(slide2TopLabel)
+		slide2.add_widget(slide2MedLayout)
 		self.slide2 = slide2
 
-		slide3 = Label(text="FUTURE SLIDE",
+		slide3 = BoxLayout(orientation='vertical', size_hint=(1, None), height=300)
+		slide3MedLayout = BoxLayout(orientation='horizontal')
+		slide3TopLabel = Label(text="FUTURE",
 				color=(255, 255, 255, 0.8),
 				font_size='30sp')
+
+		slide3MedLeftLabel = Label(text="s3 med left", 
+					color=(255,255,255,0.8),
+					font_size='20sp')
+		slide3MedMedLabel = Label(text="s3 med med",
+					color=(255, 255, 255, 0.8),
+					font_size='20sp')
+		slide3MedRightLabel = Label(text="s3 med right",
+					color=(255,255,255,0.8),
+					font_size='20sp')
+
+		slide3MedLayout.add_widget(slide3MedLeftLabel)
+		slide3MedLayout.add_widget(slide3MedMedLabel)
+		slide3MedLayout.add_widget(slide3MedRightLabel)
+
+		slide3.add_widget(slide3TopLabel)
+		slide3.add_widget(slide3MedLayout)
+
 		self.slide3 = slide3
 
+		slides.add_widget(slide1)
+		
 	def receiveSlideChoice(self, value, instance):
 		slide = value[2]
 		print "\n\n\nslide = ", slide, "\n\n\n\n\n"
@@ -187,17 +242,16 @@ class Application(App):
 		widgetD = RelativeLayout(size_hint=(None,None), 
 					size=(width/2-100,300))
 
-		knobD = MyKnob(size=(200,200),
+		knobD = MyKnob(size=(300,300),
 				min=0, max=360,
 				step=1,
 				show_marker=True,
 				knobimg_source="img/knob_metal.png",
-				marker_img="img/test.png",
+				marker_img="img/knob_marker.png",
 				markeroff_color = (0.3, 0.3, 0.3, 1),
 				pattern_id=99,
 				debug=False,
 				obj = scatter,
-				pos=(50,50),
 				knob_id=004)
 
 		labelD = Label(text = "Choose\nSlide",
