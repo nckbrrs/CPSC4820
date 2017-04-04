@@ -21,9 +21,9 @@ class Controller():
         Clock.schedule_interval(lambda *x: oscAPI.readQueue(dialOSC), 0)
         oscAPI.bind(dialOSC, self.dialListener, '/tuios/tok')
 
-        recvOSC = oscAPI.listen(ipAddr=self.ip, port= self.recvPort) 
-        Clock.schedule_interval(lambda *x: oscAPI.readQueue(recvOSC), 0)
-        oscAPI.bind(recvOSC, self.receive, '/tuios/tok')
+    #    recvOSC = oscAPI.listen(ipAddr=self.ip, port= self.recvPort) 
+    #    Clock.schedule_interval(lambda *x: oscAPI.readQueue(recvOSC), 0)
+    #    oscAPI.bind(recvOSC, self.receive, '/tuios/tok')
 
     #def _keyboard_closed(self):
      #   self._keyboard.unbind(on_key_down=self._on_keyboard_down)
