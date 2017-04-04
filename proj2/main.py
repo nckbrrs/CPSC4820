@@ -13,25 +13,26 @@ Config.set('graphics', 'top', 0)
 Config.set('graphics', 'height', height)
 Config.set('graphics', 'width', width)
 
-from kivy.app import App
-from ui import UI
-from controller import Controller
 from renderer import Renderer
+from controller import Controller
+from ui import UI
+
+from kivy.app import App
+from kivy.properties import *
 from kivy.uix.widget import Widget
 from kivy.uix.label import Label
-from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.button import Button
 from kivy.uix.behaviors import ButtonBehavior
-from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
-from kivy.uix.scatter import Scatter
+from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.image import Image
 from kivy.animation import Animation
+from kivy.uix.scatter import Scatter
 from kivy.graphics.texture import Texture
-from kivy.properties import *
-from kivy.lib.osc import oscAPI
 from kivy.clock import Clock
+from kivy.lib.osc import oscAPI
 from kivy.garden.tei_knob import Knob
 
 class MyKnob(Knob):
@@ -212,88 +213,13 @@ class Application (App):
 					italic=True,
 					color=(255,255,255,0.75),
 					font_size='20sp')
-		
-		rotHorWidget = RelativeLayout(size_hint = (None, None), 
-                                 size = (300,300))
 
-
-		rotHorKnob = MyKnob(size = (300, 300),
-                         min = 0, max = 360,
-                         step = 1,
-                         show_marker = True,
-                         knobimg_source = "img/knob_metal.png",
-                         marker_img = "img/bline.png",
-                         markeroff_color = (0.3, 0.3, .3, 1),
-                         pattern_id= 99, #(ids 1 to 8, or 99 for no id)
-                         debug = False,
-                         obj = scatter, # Passes the object to the knob
-                         knob_id = 001)
-
-		rotHorLabel = Label(text = "Rotate object\nhorizontally",
-			font_size = '20sp',
-			italic = True,
-			bold = True,
-			color = (0, 0, 0, 0.75),
-			halign = "center")
- 
-		rotHorWidget.add_widget(rotHorKnob)
-		rotHorWidget.add_widget(rotHorLabel)
-
-		rotVertWidget = RelativeLayout(size_hint = (None, None), 
-                                 size = (300,300))
-
-		rotVertKnob = MyKnob(size = (300, 300),
-                         min = 0, max = 360,
-                         step = 1,
-                         show_marker = True,
-                         knobimg_source = "img/knob_metal.png",
-                         marker_img = "img/bline.png",
-                         markeroff_color = (0.3, 0.3, .3, 1),
-                         pattern_id= 99, #(ids 1 to 8, or 99 for no id)
-                         debug = False,
-                         obj = scatter, # Passes the object to the knob
-                         knob_id = 002) 
-
-		rotVertLabel = Label(text = "Rotate object\nvertically",
-			font_size = '20sp',
-			italic = True,
-			bold = True,
-			color = (0, 0, 0, 0.75),
-			halign = "center")
-
-		rotVertWidget.add_widget(rotVertKnob)
-		rotVertWidget.add_widget(rotVertLabel)
-
-		zoomWidget = RelativeLayout(size_hint = (None, None), 
-                                 size = (300,300))
-
-
-		zoomKnob = MyKnob(size = (300, 300),
-                         min = 0, max = 360,
-                         step = 1,
-                         show_marker = True,
-                         knobimg_source = "img/knob_metal.png",
-                         marker_img = "img/bline.png",
-                         markeroff_color = (0.3, 0.3, .3, 1),
-                         pattern_id= 99, #(ids 1 to 8, or 99 for no id)
-                         debug = False,
-                         obj = scatter, # Passes the object to the knob
-                         knob_id = 003) 
-
-		zoomLabel = Label(text = "Zoom",
-			font_size = '20sp',
-			italic = True,
-			bold = True,
-			color = (0, 0, 0, 0.75),
-			halign = "center")
-
-		zoomWidget.add_widget(zoomKnob)
-		zoomWidget.add_widget(zoomLabel)
 
 		trayKnobWidget = RelativeLayout(size_hint=(None,None),
-						size=(300,300))
+						size=(width/2,300))
 
 		trayKnob = MyKnob(size=(300,300),
+				pos=(-120,0),
 				min=0, max=360, step=1,
 				show_marker = True,
 				knobimg_source = "img/knob_metal.png",
@@ -305,6 +231,7 @@ class Application (App):
 				knob_id=4)
 
 		trayKnobLabel = Label(text="Choose\nSlide",
+					pos=(-290,0),
 					font_size='20sp',
 					italic=True,
 					bold=True,
@@ -314,10 +241,7 @@ class Application (App):
 		trayKnobWidget.add_widget(trayKnob)
 		trayKnobWidget.add_widget(trayKnobLabel)
 
-		#trayLayout.add_widget(trayLeftLabel)
-		trayLayout.add_widget(rotHorWidget)
-		trayLayout.add_widget(rotVertWidget)
-		trayLayout.add_widget(zoomWidget)
+		trayLayout.add_widget(trayLeftLabel)
 		trayLayout.add_widget(trayKnobWidget)
 
 		mainWindow.add_widget(topLabel)

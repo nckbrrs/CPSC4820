@@ -14,7 +14,7 @@ class UI(AnchorLayout):
     def define_rotate_angle(self, touch):
         x_angle = (touch.dx/self.width)*360
         y_angle = -1*(touch.dy/self.height)*360
-        return x_angle, y_angle  
+        return y_angle, x_angle  
 
     def on_touch_down(self, touch):
         if touch.y > 310:
@@ -53,11 +53,11 @@ class UI(AnchorLayout):
                 SCALE_FACTOR = 0.1
                 
                 if new_distance > old_distance: 
-                    scale = -1*SCALE_FACTOR
+                    scale = SCALE_FACTOR
                 elif new_distance == old_distance:
                     scale = 0
                 else:
-                    scale = SCALE_FACTOR
+                    scale = -1*SCALE_FACTOR
                 
                 if scale:
                     self.controller.zoom(scale)
