@@ -16,7 +16,6 @@ Config.set('graphics', 'width', width)
 from kivy.app import App
 from ui import UI
 from controller import Controller
-#from renderer import Renderer
 from NEWrenderer import Renderer
 from kivy.uix.widget import Widget
 from kivy.uix.label import Label
@@ -25,7 +24,6 @@ from kivy.uix.button import Button
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import *
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.scatter import Scatter
 from kivy.uix.image import Image
@@ -77,7 +75,6 @@ class MyKnob(Knob):
                                   ' knob_angle: ' + str(self.knob_angle) + \
                                   ' token_placed: ' + str(self.tk_placed)
 
-
 		s = self.knob_id
 		i = self.pattern_id
 		x = self.token_pos[0]
@@ -105,95 +102,68 @@ class HomescreenButton(ButtonBehavior, Image):
 
 class SlideShow():
 	def __init__(self):
-		print "\n\n\n\n\nslideshow built\n\n\n\n"
 		self.ip="127.0.0.1"
 		self.recvPort=5001
-
 		oscAPI.init()
 		slideOSC = oscAPI.listen(ipAddr=self.ip, port= self.recvPort) 
 		Clock.schedule_interval(lambda *x: oscAPI.readQueue(slideOSC), 0)
 		oscAPI.bind(slideOSC, self.receiveSlideChoice, '/tuios/tok')
-	
+		
 		slides = BoxLayout(orientation='vertical')
 		self.slides = slides
 
-		slide1 = BoxLayout(orientation='vertical', size_hint=(1, None), height=300)
-		slide1MedLayout = BoxLayout(orientation='horizontal')
-		slide1TopLabel = Label(text="INTRODUCTION",
-				color=(255, 255, 255, 0.8),
-				font_size='30sp')
-
-		slide1MedLeftLabel = Label(text="s1 med left", 
+		slide1 = BoxLayout(orientation='horizontal')
+		slide1LeftLabel = Label(text="PAST:\nWhat\nwe've\ndone",
+					halign="left",
 					color=(255,255,255,0.8),
-					font_size='20sp')
-		slide1MedMedLabel = Label(text="s1 med med",
-					color=(255, 255, 255, 0.8),
-					font_size='20sp')
-		slide1MedRightLabel = Label(text="s1 med right",
-					color=(255,255,255,0.8),
-					font_size='20sp')
+					bold=True,
+					italic=True,
+					font_size='50sp')
+		slide1MidLabel = Label(text=" ")
+		slide1RightLabel = Label(text="Lorem Ipsum / Lorem Ipsum\nHere's what we've \ndiscovered so far.",
+					font_size='25sp')
 
-		slide1MedLayout.add_widget(slide1MedLeftLabel)
-		slide1MedLayout.add_widget(slide1MedMedLabel)
-		slide1MedLayout.add_widget(slide1MedRightLabel)
-
-		slide1.add_widget(slide1TopLabel)
-		slide1.add_widget(slide1MedLayout)
+		slide1.add_widget(slide1LeftLabel)
+		slide1.add_widget(slide1MidLabel)
+		slide1.add_widget(slide1RightLabel)
 		self.slide1 = slide1
 
-		slide2 = BoxLayout(orientation='vertical', size_hint=(1, None), height=300)
-		slide2MedLayout = BoxLayout(orientation='horizontal',
-					size_hint=(1, None),
-					height=200)
-		slide2TopLabel = Label(text="PRESENT SLIDE",
-				color=(255, 255, 255, 0.8),
-				font_size='30sp')
-
-		slide2MedLeftLabel = Label(text="here's the brain we're tryna look at",
+		slide2 = BoxLayout(orientation='horizontal')
+		slide2LeftLabel = Label(text="PRESENT:\nWhat\nwe've\ndone",
+					halign="left",
 					color=(255,255,255,0.8),
-					font_size='20sp')
+					bold=True,
+					italic=True,
+					font_size='50sp')
+		slide2MidLabel = Label(text=" ")
+		slide2RightLabel = Label(text="Lorem Ipsum / Lorem Ipsum\nHere's what we're \nworking on at the moment.",
+					font_size='25sp')
 
-		#renderer = Renderer()
-		#controller = Controller(renderer = renderer)
-		#ui = UI(renderer = renderer, controller = controller)
-
-		slide2MedLayout.add_widget(slide2MedLeftLabel)
-		#slide2MedLayout.add_widget(ui)
-
-		slide2.add_widget(slide2TopLabel)
-		slide2.add_widget(slide2MedLayout)
+		slide2.add_widget(slide2LeftLabel)
+		slide2.add_widget(slide2MidLabel)
+		slide2.add_widget(slide2RightLabel)
 		self.slide2 = slide2
 
-		slide3 = BoxLayout(orientation='vertical', size_hint=(1, None), height=300)
-		slide3MedLayout = BoxLayout(orientation='horizontal')
-		slide3TopLabel = Label(text="FUTURE",
-				color=(255, 255, 255, 0.8),
-				font_size='30sp')
-
-		slide3MedLeftLabel = Label(text="s3 med left", 
+		slide3 = BoxLayout(orientation='horizontal')
+		slide3LeftLabel = Label(text="FUTURE:\nWhat\nwe'll\ndo",
+					halign="left",
 					color=(255,255,255,0.8),
-					font_size='20sp')
-		slide3MedMedLabel = Label(text="s3 med med",
-					color=(255, 255, 255, 0.8),
-					font_size='20sp')
-		slide3MedRightLabel = Label(text="s3 med right",
-					color=(255,255,255,0.8),
-					font_size='20sp')
+					bold=True,
+					italic=True,
+					font_size='50sp')
+		slide3MidLabel = Label(text=" ")
+		slide3RightLabel = Label(text="Lorem Ipsum / Lorem Ipsum\nHere's what we \nplan on accomplishing.",
+					font_size='25sp')
 
-		slide3MedLayout.add_widget(slide3MedLeftLabel)
-		slide3MedLayout.add_widget(slide3MedMedLabel)
-		slide3MedLayout.add_widget(slide3MedRightLabel)
-
-		slide3.add_widget(slide3TopLabel)
-		slide3.add_widget(slide3MedLayout)
-
+		slide3.add_widget(slide3LeftLabel)
+		slide3.add_widget(slide3MidLabel)
+		slide3.add_widget(slide3RightLabel)
 		self.slide3 = slide3
 
 		slides.add_widget(slide1)
-		
+
 	def receiveSlideChoice(self, value, instance):
 		slide = value[2]
-		print "\n\n\nslide = ", slide, "\n\n\n\n\n"
 		if (slide>0 and slide <121):
 			self.slides.clear_widgets()
 			self.slides.add_widget(self.slide1)
@@ -204,48 +174,50 @@ class SlideShow():
 			self.slides.clear_widgets()
 			self.slides.add_widget(self.slide3)
 
-class Application(App):
-
+class Application (App):
+	
 	def build(self):
 		root = FloatLayout(size=(width, height))
-		brainAndTray = BoxLayout(orientation='vertical')
-		#brainAndTray = FloatLayout(size=(width, height))
-		topLayout = SlideShow()
+		mainWindow = BoxLayout(orientation='vertical')	
+		slidesLayout = SlideShow()
 		trayLayout = BoxLayout(orientation='horizontal',
-					size_hint=(1, None),
+					size_hint=(1,None),
 					height=300,
 					padding=20)
-
 		scatter = Scatter()
 
-		mainImg = HomescreenButton(source='img/homescreen.jpg',
+		homescreenImg = HomescreenButton(source='img/homescreen.jpg', 
 					pos=(0,0),
 					keep_ratio=False,
 					allow_stretch=True,
-					size_hint=(1, 1))
-		self.mainImg = mainImg
+					size_hint=(1,1))
+		self.homescreenImg = homescreenImg
 
-		backgroundImg = Image(source='img/background.jpg')
+		backgroundImg = Image(source='img/background.jpg',
+					pos=(0,0),
+					keep_ratio=False,
+					allow_stretch=True,
+					size_hint=(1,1))
 
-		topTopLabel = Label(valign="middle",
-					halign="center",
-					text="Creating a 3-D Model of the Brain",
-					color=(255,255,255,1),
-					bold=True,
-					font_size='50sp')
+		topLabel = Label(text="Creating a 3-D Model of the Brain",
+				font_size='50sp',
+				font_color=(255,255,255,0.8))
 
-		trayLeftLabel = Label(valign="middle",
-					text="Use an appropriate token\nor three fingers to\nexplore the presentation\nusing the knob",
+		renderer = Renderer()
+		controller = Controller(renderer = renderer)
+		viewer = UI(renderer = renderer, controller = controller)
+
+
+		trayLeftLabel = Label(text="Use an appropriate token\nor three fingers to\nexplore the presentation\nusing the knob",
 					italic=True,
 					color=(255,255,255,0.75),
 					font_size='20sp')
-
-####### rot/zoom knobs ####
-		widgetA = RelativeLayout(size_hint = (None, None), 
+		
+		rotHorWidget = RelativeLayout(size_hint = (None, None), 
                                  size = (300,300))
 
 
-		knobA = MyKnob(size = (300, 300),
+		rotHorKnob = MyKnob(size = (300, 300),
                          min = 0, max = 360,
                          step = 1,
                          show_marker = True,
@@ -257,21 +229,20 @@ class Application(App):
                          obj = scatter, # Passes the object to the knob
                          knob_id = 001)
 
-		labelA = Label(text = "Rotate object\nhorizontally",
+		rotHorLabel = Label(text = "Rotate object\nhorizontally",
 			font_size = '20sp',
 			italic = True,
 			bold = True,
 			color = (0, 0, 0, 0.75),
 			halign = "center")
  
-		widgetA.add_widget(knobA)
-		widgetA.add_widget(labelA)
+		rotHorWidget.add_widget(rotHorKnob)
+		rotHorWidget.add_widget(rotHorLabel)
 
-        # Creates a MyKnob object
-		widgetB = RelativeLayout(size_hint = (None, None), 
+		rotVertWidget = RelativeLayout(size_hint = (None, None), 
                                  size = (300,300))
 
-		knobB = MyKnob(size = (300, 300),
+		rotVertKnob = MyKnob(size = (300, 300),
                          min = 0, max = 360,
                          step = 1,
                          show_marker = True,
@@ -283,22 +254,21 @@ class Application(App):
                          obj = scatter, # Passes the object to the knob
                          knob_id = 002) 
 
-		labelB = Label(text = "Rotate object\nvertically",
+		rotVertLabel = Label(text = "Rotate object\nvertically",
 			font_size = '20sp',
 			italic = True,
 			bold = True,
 			color = (0, 0, 0, 0.75),
 			halign = "center")
 
-		widgetB.add_widget(knobB)
-		widgetB.add_widget(labelB)
+		rotVertWidget.add_widget(rotVertKnob)
+		rotVertWidget.add_widget(rotVertLabel)
 
-        # Creates a MyKnob object
-		widgetC = RelativeLayout(size_hint = (None, None), 
+		zoomWidget = RelativeLayout(size_hint = (None, None), 
                                  size = (300,300))
 
 
-		knobC = MyKnob(size = (300, 300),
+		zoomKnob = MyKnob(size = (300, 300),
                          min = 0, max = 360,
                          step = 1,
                          show_marker = True,
@@ -310,63 +280,56 @@ class Application(App):
                          obj = scatter, # Passes the object to the knob
                          knob_id = 003) 
 
-		labelC = Label(text = "Zoom",
+		zoomLabel = Label(text = "Zoom",
 			font_size = '20sp',
 			italic = True,
 			bold = True,
 			color = (0, 0, 0, 0.75),
 			halign = "center")
 
-		widgetC.add_widget(knobC)
-		widgetC.add_widget(labelC)
+		zoomWidget.add_widget(zoomKnob)
+		zoomWidget.add_widget(zoomLabel)
 
-#############
-		widgetD = RelativeLayout(size_hint=(None,None), 
-					size=(width/2-100,300))
+		trayKnobWidget = RelativeLayout(size_hint=(None,None),
+						size=(300,300))
 
-		knobD = MyKnob(size=(300,300),
-				min=0, max=360,
-				step=1,
-				show_marker=True,
-				knobimg_source="img/knob_metal.png",
-				marker_img="img/knob_marker.png",
-				markeroff_color = (0.3, 0.3, 0.3, 1),
-				pattern_id=99,
-				debug=False,
-				obj = scatter,
-				knob_id=004)
+		trayKnob = MyKnob(size=(300,300),
+				min=0, max=360, step=1,
+				show_marker = True,
+				knobimg_source = "img/knob_metal.png",
+				marker_img = "img/knob_marker.png",
+				markeroff_color = (.3, .3, .3, 1),
+				pattern_id = 99,
+				debug = False,
+				obj = scatter, 
+				knob_id=4)
 
-		labelD = Label(text = "Choose\nSlide",
-				font_size='20sp',
-				italic=True,
-				bold=True,
-				color=(0,0,0,0.75),
-				halign="center",
-				pos=(-120, 0))
+		trayKnobLabel = Label(text="Choose\nSlide",
+					font_size='20sp',
+					italic=True,
+					bold=True,
+					halign="center",
+					color=(0,0,0,0.75))
 
-		widgetD.add_widget(knobD)
-		widgetD.add_widget(labelD)
-		
-		trayLayout.add_widget(trayLeftLabel)
-		#trayLayout.add_widget(widgetA)
-		#trayLayout.add_widget(widgetB)
-		#trayLayout.add_widget(widgetC)
-		trayLayout.add_widget(widgetD)		
+		trayKnobWidget.add_widget(trayKnob)
+		trayKnobWidget.add_widget(trayKnobLabel)
 
-		renderer = Renderer()
-		controller = Controller(renderer = renderer)
-		ui = UI(renderer = renderer, controller = controller)		
+		#trayLayout.add_widget(trayLeftLabel)
+		trayLayout.add_widget(rotHorWidget)
+		trayLayout.add_widget(rotVertWidget)
+		trayLayout.add_widget(zoomWidget)
+		trayLayout.add_widget(trayKnobWidget)
 
-		brainAndTray.add_widget(topTopLabel)
-		brainAndTray.add_widget(topLayout.slides)
-		brainAndTray.add_widget(ui)
-		brainAndTray.add_widget(trayLayout)
-	
+		mainWindow.add_widget(topLabel)
+		mainWindow.add_widget(slidesLayout.slides)
+		mainWindow.add_widget(trayLayout)
+
 		root.add_widget(backgroundImg)
-		root.add_widget(brainAndTray)
-		root.add_widget(mainImg)
-
+		root.add_widget(viewer)
+		root.add_widget(mainWindow)
+		root.add_widget(homescreenImg)
 		return root
 
 if __name__ == "__main__":
-    Application().run()
+	Application().run()
+	

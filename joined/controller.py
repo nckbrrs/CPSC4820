@@ -22,29 +22,6 @@ class Controller():
         self.renderer.rotx.angle += rotX
         self.renderer.roty.angle += rotY
 
-#### MY VERSION, WORKS #####
-#    def setRotationX(self, x):
-#        self.renderer.rotx.angle = x
-
-#    def setRotationY(self, y):
-#        self.renderer.roty.angle = y
-  
-#    def setRotation(self, x, y):
-#        self.renderer.rotx.angle = x
-#        self.renderer.roty.angle = y
-
-#    def zoom(self, zoom):
-#        print self.renderer.camera_translate
-#        if (self.renderer.camera_translate[2] + zoom < 30 and 
-#                self.renderer.camera_translate[2] + zoom > 0):
-#            self.renderer.camera_translate[2] += zoom
-
-
-#    def setZoom(self, zoom):
-#        self.renderer.camera_translate[2] = zoom
-
-###### END COMMENTING #####
-
     def zoom(self, scale):
 	xyz = self.renderer.scale.xyz
 	if (xyz[0] + scale > 0):
@@ -60,30 +37,29 @@ class Controller():
 
     def dialListener(self, value, instance):
         # print ("value", value, "instance:", instance)
-        knob = value[2] - 1
+        knob = value[2]
         angle = (value[7])
 
         if (value[8] == 1):
-            self._prevKnob[knob] = -1.
+            self._prevKnob[knob-1] = -1.
             print "place"
-        elif (self._prevKnob[knob] == -1.):
-            self._prevKnob[knob] = angle
+        elif (self._prevKnob[knob-1] == -1.):
+            self._prevKnob[knob-1] = angle
             print "set"
         else:
-            delta = angle - self._prevKnob[knob]
-            self._prevKnob[knob] = angle
+            delta = angle - self._prevKnob[knob-1]
+            self._prevKnob[knob-1] = angle
             if (abs(delta) > 100):
                 delta = 0
             print "move:", delta
 
-            if (knob == 0):
+            if (knob == 1):
                 self.rotate(0,delta)
-            elif (knob == 1):
-                self.rotate(delta,0)
             elif (knob == 2):
-                self.zoom(delta*.01)
+                self.rotate(delta,0)
             elif (knob == 3):
-		print "\n\n\nslide knob\n\n\n"
+                self.zoom(delta*.01)
+            elif (knob == 4):
 		self.setSlide(angle)
 
 

@@ -16,7 +16,6 @@ Config.set('graphics', 'width', width)
 from kivy.app import App
 from ui import UI
 from controller import Controller
-#from renderer import Renderer
 from NEWrenderer import Renderer
 from kivy.uix.widget import Widget
 from kivy.uix.label import Label
@@ -25,7 +24,6 @@ from kivy.uix.button import Button
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import *
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.scatter import Scatter
 from kivy.uix.image import Image
@@ -77,7 +75,6 @@ class MyKnob(Knob):
                                   ' knob_angle: ' + str(self.knob_angle) + \
                                   ' token_placed: ' + str(self.tk_placed)
 
-
 		s = self.knob_id
 		i = self.pattern_id
 		x = self.token_pos[0]
@@ -105,7 +102,6 @@ class HomescreenButton(ButtonBehavior, Image):
 
 class SlideShow():
 	def __init__(self):
-		print "\n\n\n\n\nslideshow built\n\n\n\n"
 		self.ip="127.0.0.1"
 		self.recvPort=5001
 		oscAPI.init()
@@ -124,7 +120,7 @@ class SlideShow():
 					italic=True,
 					font_size='50sp')
 		slide1MidLabel = Label(text=" ")
-		slide1RightLabel = Label(text="Lorem Ipsum / Lorem Ipsum\nLorem Ipsum / Lorem Ipsum\nLorem Ipsum / Lorem Ipsum",
+		slide1RightLabel = Label(text="Lorem Ipsum / Lorem Ipsum\nHere's what we've \ndiscovered so far.",
 					font_size='25sp')
 
 		slide1.add_widget(slide1LeftLabel)
@@ -140,7 +136,7 @@ class SlideShow():
 					italic=True,
 					font_size='50sp')
 		slide2MidLabel = Label(text=" ")
-		slide2RightLabel = Label(text="Lorem Ipsum / Lorem Ipsum\nLorem Ipsum / Lorem Ipsum\nLorem Ipsum / Lorem Ipsum",
+		slide2RightLabel = Label(text="Lorem Ipsum / Lorem Ipsum\nHere's what we're \nworking on at the moment.",
 					font_size='25sp')
 
 		slide2.add_widget(slide2LeftLabel)
@@ -156,7 +152,7 @@ class SlideShow():
 					italic=True,
 					font_size='50sp')
 		slide3MidLabel = Label(text=" ")
-		slide3RightLabel = Label(text="Lorem Ipsum / Lorem Ipsum\nLorem Ipsum / Lorem Ipsum\nLorem Ipsum / Lorem Ipsum",
+		slide3RightLabel = Label(text="Lorem Ipsum / Lorem Ipsum\nHere's what we \nplan on accomplishing.",
 					font_size='25sp')
 
 		slide3.add_widget(slide3LeftLabel)
@@ -217,6 +213,7 @@ class Application (App):
 					color=(255,255,255,0.75),
 					font_size='20sp')
 
+
 		trayKnobWidget = RelativeLayout(size_hint=(None,None),
 						size=(width/2,300))
 
@@ -233,12 +230,12 @@ class Application (App):
 				knob_id=4)
 
 		trayKnobLabel = Label(text="Choose\nSlide",
+					pos=(-290,0),
 					font_size='20sp',
 					italic=True,
 					bold=True,
 					halign="center",
-					color=(0,0,0,0.75),
-					pos=(-290,0))
+					color=(0,0,0,0.75))
 
 		trayKnobWidget.add_widget(trayKnob)
 		trayKnobWidget.add_widget(trayKnobLabel)
