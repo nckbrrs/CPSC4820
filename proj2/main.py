@@ -194,7 +194,7 @@ class Application (App):
 					size_hint=(1,1))
 		self.homescreenImg = homescreenImg
 
-		backgroundImg = Image(source='img/background.jpg',
+		backgroundImg = Image(source='img/background.png',
 					pos=(0,0),
 					keep_ratio=False,
 					allow_stretch=True,
