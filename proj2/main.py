@@ -165,13 +165,14 @@ class SlideShow():
 
 	def receiveSlideChoice(self, value, instance):
 		slide = value[2]
-		if (slide>0 and slide <121):
+
+		if (slide==1):
 			self.slides.clear_widgets()
 			self.slides.add_widget(self.slide1)
-		elif (slide > 120 and slide < 241):
+		elif (slide==2):
 			self.slides.clear_widgets()
 			self.slides.add_widget(self.slide2)
-		elif (slide > 240 and slide < 361):
+		elif (slide==3):
 			self.slides.clear_widgets()
 			self.slides.add_widget(self.slide3)
 

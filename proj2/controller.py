@@ -32,7 +32,19 @@ class Controller():
 	self.renderer.roty.angle = 0
 	self.renderer.scale.xyz = (1,1,1)
 
-    def setSlide(self, slide):
+    def setSlide(self, angle):
+	if (angle > -1 and angle < 121):
+		self.renderer.roty.angle = 0
+		slide = 1
+	if (angle > 120 and angle < 241):
+		self.renderer.roty.angle = 270
+		slide = 2
+	if (angle > 240 and angle < 361):
+		self.renderer.roty.angle = 180
+		slide = 3
+
+	print "\n\n\nsending slide:", slide, "\n\n\n"
+
         oscAPI.sendMsg('/tuios/tok', [slide], ipAddr= self.ip, port=self.sendPort)
 
     def dialListener(self, value, instance):
