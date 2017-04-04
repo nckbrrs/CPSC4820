@@ -16,7 +16,7 @@ Config.set('graphics', 'width', width)
 from kivy.app import App
 from ui import UI
 from controller import Controller
-from NEWrenderer import Renderer
+from renderer import Renderer
 from kivy.uix.widget import Widget
 from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
