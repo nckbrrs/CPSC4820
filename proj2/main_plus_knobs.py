@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.getcwd() + "/lib/garden.tei_knob/")
+
 from kivy.config import Config
 from win32api import GetSystemMetrics
 width = GetSystemMetrics(0)
@@ -33,7 +37,8 @@ from kivy.uix.scatter import Scatter
 from kivy.graphics.texture import Texture
 from kivy.clock import Clock
 from kivy.lib.osc import oscAPI
-from kivy.garden.tei_knob import Knob
+#from kivy.garden.tei_knob import Knob
+from tei_knob import Knob
 
 class MyKnob(Knob):
 	ip = '127.0.0.1'
