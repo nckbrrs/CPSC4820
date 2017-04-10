@@ -3,11 +3,11 @@ import os
 sys.path.append(os.getcwd() + "/lib/garden.tei_knob/")
 
 from kivy.config import Config
-from win32api import GetSystemMetrics
-width = GetSystemMetrics(0)
-height = GetSystemMetrics(1)
-#width = 1280
-#height = 720
+#from win32api import GetSystemMetrics
+#width = GetSystemMetrics(0)
+#height = GetSystemMetrics(1)
+width = 1280
+height = 720
 dial = 300
 Config.set('graphics', 'borderless', 1)
 Config.set('graphics', 'resizable', 0)
@@ -135,7 +135,7 @@ class SlideShow():
 		self.slide1 = slide1
 
 		slide2 = BoxLayout(orientation='horizontal')
-		slide2LeftLabel = Label(text="PRESENT:\nWhat\nwe've\ndone",
+		slide2LeftLabel = Label(text="PRESENT:\nWhat\nwe're\ndoing",
 					halign="left",
 					color=(255,255,255,0.8),
 					bold=True,

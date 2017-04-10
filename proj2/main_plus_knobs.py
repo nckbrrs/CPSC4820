@@ -135,7 +135,7 @@ class SlideShow():
 		self.slide1 = slide1
 
 		slide2 = BoxLayout(orientation='horizontal')
-		slide2LeftLabel = Label(text="PRESENT:\nWhat\nwe've\ndone",
+		slide2LeftLabel = Label(text="PRESENT:\nWhat\nwe're\ndoing",
 					halign="left",
 					color=(255,255,255,0.8),
 					bold=True,
