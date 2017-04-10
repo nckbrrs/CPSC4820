@@ -3,11 +3,11 @@ import os
 sys.path.append(os.getcwd() + "/lib/garden.tei_knob/")
 
 from kivy.config import Config
-#from win32api import GetSystemMetrics
-#width = GetSystemMetrics(0)
-#height = GetSystemMetrics(1)
-width = 1280
-height = 720
+from win32api import GetSystemMetrics
+width = GetSystemMetrics(0)
+height = GetSystemMetrics(1)
+#width = 1280
+#height = 720
 dial = 300
 Config.set('graphics', 'borderless', 1)
 Config.set('graphics', 'resizable', 0)
