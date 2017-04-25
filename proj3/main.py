@@ -65,8 +65,8 @@ class MyKnob(Knob):
 		p = str(True)
 	
 		oscAPI.sendMsg('/tuios/tok', [s,i,x,y,z,a,p],
-				ipAddr=self.ip,
-				port=self.sendPort)
+					ipAddr=self.ip,
+					port=self.sendPort)
 
 	def on_value(self, instance, value):
 		print "token value: " + str(value)
@@ -93,8 +93,8 @@ class MyKnob(Knob):
 		p = str(self.tk_placed)
 		
 		oscAPI.sendMsg('/tuios/tok', [s,i,x,y,z,a,p],
-				ipAddr=self.ip,
-				port=self.sendPort)
+						ipAddr=self.ip,
+						port=self.sendPort)
 
 		print 'tray::on_knob:sendOSCMsg ' + 'knob_id: ' + str(self.knob_id) + \
                                   ' pattern_id: ' + str(self.pattern_id) + \
@@ -112,25 +112,16 @@ class HomescreenButton(ButtonBehavior, Image):
 class MethodsImages(ButtonBehavior, Image):
 	def on_press(self):
 		global times_pressed
+		times_pressed = times_pressed + 1
 
 		if (times_pressed % 4 == 1):
 			self.source="img/methods2.jpg"
-			times_pressed = times_pressed + 1
-			print times_pressed, "\n"
 		elif (times_pressed % 4 == 2):
 			self.source="img/methods3.png"
-			times_pressed = times_pressed + 1
-			print times_pressed, "\n"
 		elif (times_pressed % 4 == 3):
 			self.source="img/methods4.png"
-			times_pressed = times_pressed + 1
-			print times_pressed, "\n"
 		else:
 			self.source="img/methods1.jpg"
-			times_pressed = times_pressed + 1
-			print times_pressed, "\n"
-
-
 
 class SlideShow():
 	def __init__(self):
@@ -146,14 +137,14 @@ class SlideShow():
 
 		slide1 = BoxLayout(orientation='horizontal', padding=50)
 		slide1LeftLabel = Label(text="[b][i][color=#ffffff][size=50]BACKGROUND:[/size][/b]\n[size=20]\nExplore the brain by pinching it to zoom\nand touch-and-dragging it to rotate\n\n[/size][/color][/i]",
-					markup=True,
-					halign="left")
+								markup=True,
+								halign="left")
 		slide1MidLabel = Label(text=" ", text_size=(5, None))
 		slide1RightLabel = Label(text="We've partnered with the St. Louis School of Engineering to begin quantifying how advanced manufacturing practices such as 3D printing will enhance the training and surgical practice for neurosurgeons. Our on-going study, which focuses on specifically undertaking the task of saving a patient experiencing a brain aneurysm, compares 3D printing against traditional training methodologies such as cadavers (human, animal), foam models, and other conventional practices.",
-					halign="left",
-					color=(255,255,255,0.8),
-					font_size='20sp',
-					text_size= (width/3, None))
+								halign="left",
+								color=(255,255,255,0.8),
+								font_size='20sp',
+								text_size= (width/3, None))
 
 		slide1.add_widget(slide1LeftLabel)
 		slide1.add_widget(slide1MidLabel)
@@ -162,16 +153,15 @@ class SlideShow():
 
 		slide2 = BoxLayout(orientation='horizontal', padding=50)
 		slide2LeftLabel = Label(text="[b][i][color=#ffffff][size=50]METHODS:[/size][/b]\n[size=20]\nTap the picture to\niterate through different pictures.\n\n[/size][/color][/i]",
-					markup=True,
-					halign="left")
-		slide2MidImage = MethodsImages(source="img/methods1.jpg", size_hint=(2.5,2.5), pos_hint={'top': 1.6})
-		slide2RightLabel = Label(text="We've developed a new way to fabricate an artificial brain that mimics the real thing, even up to the point of bleeding when cut. The process entails converting images obtained from medical scans into computer generated designs and, through the assistance of 3D printing, fabricating lifelike organs that can be poked, prodded, and dissected. The process begins with images obtained from MRI, CT, or ultrasound scans into computer-assisted designs (CAD). Instead of using these designs to create rigid plastic replicas of human anatomy, which was already being done in many other places, we instead converted the CADs of organs into molds, or negatives, which were built using a 3D printer that are then injected with a hydrogel which, after freezing, assumes a solid state. The water consistency of the hydrogel is identical to that found in our bodies giving the artificial brain the same feeling as the real thing.",
-					halign="left",
-					color=(255,255,255,0.8),
-					font_size='15sp',
-					pos_hint={'top':0.5},
-					padding_x=20,
-					text_size= (width/4, None))
+								markup=True,
+								halign="left")
+		slide2MidImage = MethodsImages(source="img/methods1.jpg", size_hint=(2.5,2.5))
+		slide2RightLabel = Label(text="The fabrication process entails converting images obtained from medical scans into computer generated designs and, through the assistance of 3D printing, fabricating lifelike organs that can be poked, prodded, and dissected. The process begins with images obtained from MRI, CT, or ultrasound scans into computer-assisted designs (CAD). Instead of using these designs to create rigid plastic replicas of human anatomy, we converted the CADs of organs into molds which were built using a 3D printer. These molds are then injected with a hydrogel which, after freezing, assumes a solid state. The water consistency of the hydrogel is identical to that found in our bodies giving the artificial brain the same feeling as the real thing.",
+								halign="left",
+								color=(255,255,255,0.8),
+								font_size='20sp',
+								padding_x=20,
+								text_size= (width/3.8, None))
 
 		slide2.add_widget(slide2LeftLabel)
 		slide2.add_widget(slide2MidImage)
@@ -180,20 +170,20 @@ class SlideShow():
 
 		slide3 = BoxLayout(orientation='horizontal')
 		slide3LeftLabel = Label(text="[b][i][color=#ffffff][size=50]IMPACT:[/size][/b]\n[size=20]\nDouble-tap the video to\nview it in fullscreen\n\n[/size][/color][/i]",
-					markup=True,
-					halign="left")
+								markup=True,
+								halign="left")
 
 		playerWidget = BoxLayout(orientation='vertical')
-		player = VideoPlayer(source='video.mp4', allow_fullscreen=True)
+		player = VideoPlayer(source='vid/video.mp4', allow_fullscreen=True)
 		self.player = player
 		playerWidget.add_widget(player)
 	
 
 		slide3RightLabel = Label(text="In this video you can see just how powerful the real life effects of this research can be. \n\n\"I've done a lot of aneurysm operations in my career and I can confidently say that having the 3D printed model here has a very positive impact on the procedure results,\" states Dr. Abdulrauf, Neurosurgeon-in-Chief at St. Louis University Hospital. \"The model has helped to idenfity and overcome surgical challenges, like optimum access to the aneurysm or the depth and angle of the approach, before surgery begins.\"",
-					halign="left",
-					color=(255,255,255,0.8),
-					font_size='15sp',
-					text_size= (width/4, None))
+								halign="left",
+								color=(255,255,255,0.8),
+								font_size='20sp',
+								text_size= (width/4, None))
 
 		slide3.add_widget(slide3LeftLabel)
 		slide3.add_widget(playerWidget)
@@ -228,27 +218,27 @@ class Application (App):
 		mainWindow = BoxLayout(orientation='vertical')	
 		slidesLayout = SlideShow()
 		trayLayout = BoxLayout(orientation='horizontal',
-					size_hint=(1,None),
-					height=300,
-					padding=20)
+								size_hint=(1,None),
+								height=300,
+								padding=20)
 		scatter = Scatter()
 
 		homescreenImg = HomescreenButton(source='img/homescreen.jpg', 
-					pos=(0,0),
-					keep_ratio=False,
-					allow_stretch=True,
-					size_hint=(1,1))
+										pos=(0,0),
+										keep_ratio=False,
+										allow_stretch=True,
+										size_hint=(1,1))
 		self.homescreenImg = homescreenImg
 
 		backgroundImg = Image(source='img/background.png',
-					pos=(0,0),
-					keep_ratio=False,
-					allow_stretch=True,
-					size_hint=(1,1))
+							pos=(0,0),
+							keep_ratio=False,
+							allow_stretch=True,
+							size_hint=(1,1))
 
 		topLabel = Label(text="Creating a 3-D Model of the Brain",
-				font_size='50sp',
-				font_color=(255,255,255,0.8))
+						font_size='50sp',
+						font_color=(255,255,255,0.8))
 
 		renderer = Renderer()
 		controller = Controller(renderer = renderer)
@@ -256,36 +246,33 @@ class Application (App):
 
 
 		trayLeftLabel = Label(text="Use an appropriate token or three fingers\nto explore the presentation using the knob\n\n",
-					italic=True,
-					color=(255,255,255,0.85),
-					font_size='20sp')
+							italic=True,
+							color=(255,255,255,0.85),
+							font_size='20sp')
 
 
 		trayKnobWidget = RelativeLayout(size_hint=(None,None),
-						size=(300,300))
+										size=(300,300))
 
 		trayKnob = MyKnob(size=(300,300),
-				min=0, max=360, step=1,
-				show_marker = True,
-				knobimg_source = "img/knob_metal.png",
-				marker_img = "img/knob_marker.png",
-				markeroff_color = (.3, .3, .3, 1),
-				pattern_id = 99,
-				debug = False,
-				obj = scatter, 
-				knob_id=4)
+						min=0, max=360, step=1,
+						show_marker = True,
+						knobimg_source = "img/knob_metal.png",
+						marker_img = "img/knob_marker.png",
+						markeroff_color = (.3, .3, .3, 1),
+						pattern_id = 99,
+						debug = False,
+						obj = scatter, 
+						knob_id=4)
 
 		trayKnobLabel = Label(text="Choose\nSlide",
-					font_size='20sp',
-					italic=True,
-					bold=True,
-					halign="center",
-					color=(0,0,0,0.75))
+							font_size='20sp',
+							italic=True,
+							bold=True,
+							halign="center",
+							color=(0,0,0,0.75))
 
-		trayRightLabel = Label(text=" ",
-					italic=True,
-					color=(255,255,255,0.85),
-					font_size='20sp')
+		trayRightLabel = Label(text=" ", font_size='20sp')
 
 		trayKnobWidget.add_widget(trayKnob)
 		trayKnobWidget.add_widget(trayKnobLabel)
