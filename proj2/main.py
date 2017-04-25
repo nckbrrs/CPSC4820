@@ -3,11 +3,11 @@ import os
 sys.path.append(os.getcwd() + "/lib/garden.tei_knob/")
 
 from kivy.config import Config
-from win32api import GetSystemMetrics
-width = GetSystemMetrics(0)
-height = GetSystemMetrics(1)
-#width = 1280
-#height = 720
+#from win32api import GetSystemMetrics
+#width = GetSystemMetrics(0)
+#height = GetSystemMetrics(1)
+width = 1280
+height = 720
 dial = 300
 Config.set('graphics', 'borderless', 1)
 Config.set('graphics', 'resizable', 0)
@@ -23,15 +23,17 @@ from ui import UI
 
 from kivy.app import App
 from kivy.properties import *
-from kivy.uix.widget import Widget
+from kivy.uix.image import Image
+from kivy.uix.video import Video
 from kivy.uix.label import Label
+from kivy.uix.widget import Widget
 from kivy.uix.button import Button
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.videoplayer import VideoPlayer
 from kivy.uix.relativelayout import RelativeLayout
-from kivy.uix.image import Image
 from kivy.animation import Animation
 from kivy.uix.scatter import Scatter
 from kivy.graphics.texture import Texture
@@ -141,12 +143,19 @@ class SlideShow():
 					bold=True,
 					italic=True,
 					font_size='50sp')
-		slide2MidLabel = Label(text=" ")
+
+
+		#slide2MidLabel = Label(text=" ")
+		player = Video(source='myvideo.mp4')
+		self.player = player
+
+
 		slide2RightLabel = Label(text="Lorem Ipsum / Lorem Ipsum\nHere's what we're \nworking on at the moment.",
 					font_size='25sp')
 
 		slide2.add_widget(slide2LeftLabel)
-		slide2.add_widget(slide2MidLabel)
+		#slide2.add_widget(slide2MidLabel)
+		slide2.add_widget(player)
 		slide2.add_widget(slide2RightLabel)
 		self.slide2 = slide2
 
@@ -174,12 +183,15 @@ class SlideShow():
 		if (slide==1):
 			self.slides.clear_widgets()
 			self.slides.add_widget(self.slide1)
+			self.player.seek(0)
 		elif (slide==2):
 			self.slides.clear_widgets()
 			self.slides.add_widget(self.slide2)
+			self.player.play = True
 		elif (slide==3):
 			self.slides.clear_widgets()
 			self.slides.add_widget(self.slide3)
+			self.player.seek(0)
 
 class Application (App):
 	
@@ -215,17 +227,16 @@ class Application (App):
 		viewer = UI(renderer = renderer, controller = controller)
 
 
-		trayLeftLabel = Label(text="Use an appropriate token\nor three fingers to\nexplore the presentation\nusing the knob",
+		trayLeftLabel = Label(text="Explore the brain by pinching it to zoom\nand touch-and-dragging it to rotate\n\n\n\n",
 					italic=True,
-					color=(255,255,255,0.75),
+					color=(255,255,255,0.85),
 					font_size='20sp')
 
 
 		trayKnobWidget = RelativeLayout(size_hint=(None,None),
-						size=(width/2,300))
+						size=(300,300))
 
 		trayKnob = MyKnob(size=(300,300),
-				pos=(-120,0),
 				min=0, max=360, step=1,
 				show_marker = True,
 				knobimg_source = "img/knob_metal.png",
@@ -237,18 +248,23 @@ class Application (App):
 				knob_id=4)
 
 		trayKnobLabel = Label(text="Choose\nSlide",
-					pos=(-290,0),
 					font_size='20sp',
 					italic=True,
 					bold=True,
 					halign="center",
 					color=(0,0,0,0.75))
 
+		trayRightLabel = Label(text="Use an appropriate token or three fingers\nto explore the presentation using the knob\n\n\n\n",
+					italic=True,
+					color=(255,255,255,0.85),
+					font_size='20sp')
+
 		trayKnobWidget.add_widget(trayKnob)
 		trayKnobWidget.add_widget(trayKnobLabel)
 
 		trayLayout.add_widget(trayLeftLabel)
 		trayLayout.add_widget(trayKnobWidget)
+		trayLayout.add_widget(trayRightLabel)
 
 		mainWindow.add_widget(topLabel)
 		mainWindow.add_widget(slidesLayout.slides)
