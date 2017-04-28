@@ -3,11 +3,11 @@ import os
 sys.path.append(os.getcwd() + "/lib/garden.tei_knob/")
 
 from kivy.config import Config
-from win32api import GetSystemMetrics
-width = GetSystemMetrics(0)
-height = GetSystemMetrics(1)
-#width = 1280
-#height = 700
+#from win32api import GetSystemMetrics
+#width = GetSystemMetrics(0)
+#height = GetSystemMetrics(1)
+width = 1280
+height = 700
 times_pressed = 0
 Config.set('graphics', 'borderless', 1)
 Config.set('graphics', 'resizable', 0)
@@ -45,7 +45,6 @@ from tei_knob import Knob
 class MyKnob(Knob):
 	ip = '127.0.0.1'
 	sendPort = 5000
-
 	knob_id = ObjectProperty('')
 	knob_angle = ObjectProperty()
 
@@ -261,8 +260,8 @@ class Application (App):
 						markeroff_color = (.3, .3, .3, 1),
 						pattern_id = 99,
 						debug = False,
-						obj = scatter, 
-						knob_id=4)
+						obj = scatter,
+						knob_id=1)
 
 		trayKnobLabel = Label(text="Choose\nSlide",
 							font_size='20sp',

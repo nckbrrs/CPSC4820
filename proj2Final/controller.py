@@ -10,8 +10,6 @@ class Controller():
         self.recvPort = 5000
 	self.sendPort = 5001
         self.renderer = kwargs['renderer']
-	self._prevKnob = [0., 0., 0., 0.]
-        self._touches = []
 
         oscAPI.init()  
         dialOSC = oscAPI.listen(ipAddr=self.ip, port=self.recvPort) 
@@ -37,41 +35,12 @@ class Controller():
 		self.renderer.roty.angle = 0
 		slide = 1
 	if (angle > 120 and angle < 241):
-		self.renderer.roty.angle = 270
 		slide = 2
 	if (angle > 240 and angle < 361):
-		self.renderer.roty.angle = 180
 		slide = 3
 
         oscAPI.sendMsg('/tuios/tok', [slide], ipAddr= self.ip, port=self.sendPort)
 
     def dialListener(self, value, instance):
-        knob = value[2]
         angle = (value[7])
-
-	try:
-
-		if (value[8] == 1):
-		    self._prevKnob[knob-1] = -1.
-		    print "place"
-		elif (self._prevKnob[knob-1] == -1.):
-		    self._prevKnob[knob-1] = angle
-		    print "set"
-		else:
-		    delta = angle - self._prevKnob[knob-1]
-		    self._prevKnob[knob-1] = angle
-		    if (abs(delta) > 100):
-		        delta = 0
-		    print "move:", delta
-
-		    if (knob == 1):
-		        self.rotate(0,delta)
-		    elif (knob == 2):
-		        self.rotate(delta,0)
-		    elif (knob == 3):
-		        self.zoom(delta*.01)
-		    elif (knob == 4):
-			self.setSlide(angle)
-
-	except:
-		pass
+	self.setSlide(angle)
